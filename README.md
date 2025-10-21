@@ -85,7 +85,6 @@ EViT/
 1. Clone the repository:
 ```bash
 git clone https://github.com/dh609/EViT.git
-cd EViT
 ```
 
 2. Install dependencies:
@@ -321,5 +320,6 @@ This project uses:
 - [PyTorch Lightning](https://github.com/Lightning-AI/lightning) for training
 - [Albumentations](https://github.com/albumentations-team/albumentations) for augmentation
 - WHU and SpaceNet for datasets
-#   e v i t - t i c i  
+#   e v i t - t i c i 
+ 
  
