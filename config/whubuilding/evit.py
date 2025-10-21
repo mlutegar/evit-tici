@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader
 from geoseg.losses import *
 from geoseg.datasets.whubuilding_dataset import *
 
-from geoseg.models.GLBViT import GLVBiT
+from geoseg.models.EViT import GLBViT
 from catalyst.contrib.nn import Lookahead
 from catalyst import utils
 
@@ -28,7 +28,7 @@ monitor_mode = 'max'
 save_top_k = 3
 save_last = True
 check_val_every_n_epoch = 1
-gpus = [1]
+gpus = 'auto'  # Changed from [1] to 'auto' to work with CPU/GPU
 strategy = None
 pretrained_ckpt_path = None
 resume_ckpt_path = None
@@ -41,9 +41,9 @@ use_aux_loss = False
 
 # define the dataloader
 
- train_dataset = WHUBuildingDataset(data_root='data/whubuilding/train_val', mode='train', mosaic_ratio=0.25, transform=train_aug)
- val_dataset = WHUBuildingDataset(data_root='data/whubuilding/val', mode='val', transform=val_aug)
- test_dataset = WHUBuildingDataset(data_root='data/whubuilding/test', mode='val', transform=val_aug)
+train_dataset = WHUBuildingDataset(data_root='data/whubuilding/train_val', mode='train_val', mosaic_ratio=0.25, transform=train_aug)
+val_dataset = WHUBuildingDataset(data_root='data/whubuilding/val', mode='val', transform=val_aug)
+test_dataset = WHUBuildingDataset(data_root='data/whubuilding/test', mode='val', transform=val_aug)
 
 train_loader = DataLoader(dataset=train_dataset,
                           batch_size=train_batch_size,

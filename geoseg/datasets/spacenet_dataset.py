@@ -54,7 +54,7 @@ def val_aug(img, mask):
 
 
 class SpacenetDataset(Dataset):
-    def __init__(self, data_root='data/spacenet/train', mode='train', img_dir='images', mask_dir='masks',
+    def __init__(self, data_root='data/spacenet/train_val', mode='train_val', img_dir='images', mask_dir='masks',
                  img_suffix='.png', mask_suffix='.png', transform=None, mosaic_ratio=0.25,
                  img_size=ORIGIN_IMG_SIZE):
         self.data_root = data_root
@@ -173,7 +173,7 @@ class SpacenetDataset(Dataset):
 if __name__=='__main__':
     a=0
     dir_img = r'E:\dh\airs2\data\spacenet\train_val'
-    train_dataset = SpacenetDataset(data_root=dir_img, mode='train', mosaic_ratio=0.25,
+    train_dataset = SpacenetDataset(data_root=dir_img, mode='train_val', mosaic_ratio=0.25,
                                     transform=train_aug)
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                               batch_size=4,

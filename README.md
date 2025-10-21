@@ -77,7 +77,8 @@ EViT/
 ## Installation
 
 ### Requirements
-- Python 3.7+
+- Python 3.9
+- python -m pip install "pip<24.1"
 - CUDA-capable GPU (recommended)
 
 ### Setup
@@ -114,7 +115,7 @@ After downloading the WHU Building dataset, you'll find the following original s
 
 ```
 WHU Building Dataset/
-├── train/
+├── train_val/
 │   ├── A/              # Aerial images (original RGB images)
 │   └── OUT/            # Ground truth masks
 ├── val/
@@ -132,9 +133,9 @@ You need to reorganize the dataset to match the expected structure:
 **Step 1**: Create the proper directory structure:
 
 ```bash
-mkdir -p data/whubuilding/train/images
-mkdir -p data/whubuilding/train/masks_origin
-mkdir -p data/whubuilding/train/masks
+mkdir -p data/whubuilding/train_val/images
+mkdir -p data/whubuilding/train_val/masks_origin
+mkdir -p data/whubuilding/train_val/masks
 mkdir -p data/whubuilding/val/images
 mkdir -p data/whubuilding/val/masks_origin
 mkdir -p data/whubuilding/val/masks
@@ -147,8 +148,8 @@ mkdir -p data/whubuilding/test/masks
 
 ```bash
 # For training set
-cp path/to/WHU_Building_Dataset/train/A/* data/whubuilding/train/images/
-cp path/to/WHU_Building_Dataset/train/OUT/* data/whubuilding/train/masks_origin/
+cp path/to/WHU_Building_Dataset/train_val/A/* data/whubuilding/train_val/images/
+cp path/to/WHU_Building_Dataset/train_val/OUT/* data/whubuilding/train_val/masks_origin/
 
 # For validation set
 cp path/to/WHU_Building_Dataset/val/A/* data/whubuilding/val/images/
@@ -164,13 +165,12 @@ cp path/to/WHU_Building_Dataset/test/OUT/* data/whubuilding/test/masks_origin/
 ```
 data/
 ├── whubuilding/
-│   ├── train/
+│   ├── train_val/
 │   │   ├── images/           # Copied from A/ folder (.tif files)
 │   │   ├── masks_origin/     # Copied from OUT/ folder (.tif files)
 │   │   └── masks/            # Will be created by mask_convert.py
-│   ├── val/                  # Same structure as train
-│   ├── test/                 # Same structure as train
-│   └── train_val/            # Optional: merged train and val
+│   ├── val/                  # Same structure as train_val
+│   ├── test/                 # Same structure as train_val
 └── spacenet/
     └── [same structure as whubuilding]
 ```
@@ -181,7 +181,7 @@ The original masks from the OUT folder need to be converted to binary format. Th
 
 ```bash
 # Convert training masks
-python mask_convert.py --mask-dir data/whubuilding/train/masks_origin --output-mask-dir data/whubuilding/train/masks
+python mask_convert.py --mask-dir data/whubuilding/train_val/masks_origin --output-mask-dir data/whubuilding/train_val/masks
 
 # Convert validation masks
 python mask_convert.py --mask-dir data/whubuilding/val/masks_origin --output-mask-dir data/whubuilding/val/masks
@@ -207,7 +207,7 @@ python mask_convert.py --mask-dir data/whubuilding/test/masks_origin --output-ma
 Train a model using a configuration file:
 
 ```bash
-python train.py --config_path config/whubuilding/evit.py
+python train_val.py --config_path config/whubuilding/evit.py
 ```
 
 **Configuration options** (in `config/whubuilding/evit.py`):

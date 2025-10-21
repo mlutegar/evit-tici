@@ -105,7 +105,7 @@ class Supervision_Train(pl.LightningModule):
         eval_value = {'mIoU': mIoU,
                       'F1': F1,
                       'OA': OA}
-        print('train:', eval_value)
+        print('train_val:', eval_value)
 
         iou_value = {}
         for class_name, iou in zip(self.config.classes, iou_per_class):
@@ -195,7 +195,11 @@ def main():
     if config.pretrained_ckpt_path:
         model = Supervision_Train.load_from_checkpoint(config.pretrained_ckpt_path, config=config)
 
-    trainer = pl.Trainer(devices=config.gpus, max_epochs=config.max_epoch, accelerator='gpu',
+    # Auto-detect accelerator based on GPU availability
+    accelerator = 'gpu' if torch.cuda.is_available() else 'cpu'
+    devices = config.gpus if torch.cuda.is_available() else 'auto'
+
+    trainer = pl.Trainer(devices=devices, max_epochs=config.max_epoch, accelerator=accelerator,
                          check_val_every_n_epoch=config.check_val_every_n_epoch,
                          callbacks=[checkpoint_callback], strategy=config.strategy,
                          resume_from_checkpoint=config.resume_ckpt_path, logger=logger)

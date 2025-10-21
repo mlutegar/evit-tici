@@ -40,7 +40,7 @@ loss = EdgeLoss(ignore_index=255)
 use_aux_loss = False
 
 # define the dataloader
- train_dataset = SpacenetDataset(data_root='data/spacenet/train_val', mode='train', mosaic_ratio=0.25, transform=train_aug)
+ train_dataset = SpacenetDataset(data_root='data/spacenet/train_val', mode='train_val', mosaic_ratio=0.25, transform=train_aug)
  val_dataset = SpacenetDataset(data_root='data/spacenet/val', mode='val', transform=val_aug)
  test_dataset = SpacenetDataset(data_root='data/spacenet/test', mode='val', transform=val_aug)
 

@@ -50,7 +50,7 @@ def val_aug(img, mask):
 
 
 class WHUBuildingDataset(Dataset):
-    def __init__(self, data_root='data/whubuilding/train', mode='train', img_dir='images', mask_dir='masks',
+    def __init__(self, data_root='data/whubuilding/train_val', mode='train_val', img_dir='images', mask_dir='masks',
                  img_suffix='.tif', mask_suffix='.tif', transform=None, mosaic_ratio=0.25,
                  img_size=ORIGIN_IMG_SIZE):
         self.data_root = data_root

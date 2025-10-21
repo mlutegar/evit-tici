@@ -27,8 +27,8 @@ def seed_everything(seed):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mask-dir", default="../data/whubuilding/train/masks_origin")
-    parser.add_argument("--output-mask-dir", default="../data/whubuilding/train/masks")
+    parser.add_argument("--mask-dir", default="../data/whubuilding/train_val/masks_origin")
+    parser.add_argument("--output-mask-dir", default="../data/whubuilding/train_val/masks")
     return parser.parse_args()
 
 
